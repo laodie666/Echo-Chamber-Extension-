@@ -14,6 +14,8 @@ app.use(cors({
   origin: "*"
 }));
 
+app.use(express.json()); // Add this line to parse JSON bodies
+
 // Create a route that sends a response when visiting the homepage
 app.get('/', async (req, res) => {
   const data = await readFile();
@@ -28,14 +30,9 @@ app.get('/data', (req, res) => {
 
 // req should be a json object matching the 4 constants above
 app.post('/update', (req, res) => {
-  const {request} = req;
+  const request = req.body; // Correctly access the request body
   
-  try {
-    JSON.parse(req.body);
-  } catch(err) {
-    console.log('error: ', err + '\n\n' + req.headers + '\n\n' + req.body);
-  }
-
+ 
   console.log(request);
   if (request === undefined || request.bias_average === undefined || request.bias_variance === undefined || request.sites_visited === undefined || request.news_sites_visited === undefined) {
     res.status(400).send("Invalid request");
