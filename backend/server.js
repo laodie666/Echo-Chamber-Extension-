@@ -29,6 +29,7 @@ app.get('/data', (req, res) => {
 // req should be a json object matching the 4 constants above
 app.post('/update', (req, res) => {
   const {request} = req;
+  console.log(request);
   if (request === undefined || request.bias_average === undefined || request.bias_variance === undefined || request.sites_visited === undefined || request.news_sites_visited === undefined) {
     res.status(400).send("Invalid request");
     return;
@@ -38,7 +39,7 @@ app.post('/update', (req, res) => {
   sites_visited = request.sites_visited;
   news_sites_visited = request.news_sites_visited;
   res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({"bias_average": bias_average, "bias_variance": bias_variance, "sites_visited": sites_visited, "news_sites_visited": news_sites_visited}));
+  res.end(JSON.stringify({bias_average: bias_average, bias_variance: bias_variance, sites_visited: sites_visited, news_sites_visited: news_sites_visited}));
 });
 
 
