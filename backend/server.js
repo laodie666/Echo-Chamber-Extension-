@@ -1,5 +1,4 @@
 import express from 'express'; // Importing express
-import { promises as fs } from 'node:fs'; // Importing the file system module
 import { readFile } from './helper.js'; // Importing the readFile function from helper.js
 import cors from 'cors'; // Importing cors
 
