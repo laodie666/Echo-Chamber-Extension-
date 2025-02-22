@@ -1,0 +1,24 @@
+{
+  "name": "echo-chamber",
+  "version": "1.0.0",
+  "description": "Whimsical and fun project for HackCanada2025",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laodie666/Echo-Chamber-Extension-.git"
+  },
+  "author": "Jordan and Colleen :D",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laodie666/Echo-Chamber-Extension-/issues"
+  },
+  "homepage": "https://github.com/laodie666/Echo-Chamber-Extension-#readme",
+  "dependencies": {
+  "express": "^4.18.2",
+  "cors": "^2.8.5"
+}
+
+}
