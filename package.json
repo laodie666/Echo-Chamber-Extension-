@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/laodie666/Echo-Chamber-Extension-#readme",
   "dependencies": {
-  "express": "^4.18.2",
-  "cors": "^2.8.5"
-}
-
+    "@tailwindcss/cli": "^4.0.8",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "tailwindcss": "^4.0.8"
+  }
 }
