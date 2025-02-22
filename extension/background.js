@@ -1,10 +1,11 @@
-import express from 'express'; // Importing express
-const app = express();
-const PORT = 3000;
+const backendUrl = 'https://echo-chamber-extension.onrender.com/';
+
+// const backendUrl = 'http://localhost:3000/';
+
 
 async function readData() {
     try {
-        const data = await fetch('https://echo-chamber-extension.onrender.com/').then((response) => response.json());
+        const data = await fetch(backendUrl).then((response) => response.json());
         console.log('Data fetched GOD BLESSED');
         console.log('Fetched data:', data); // Log the entire data object
         return data;
@@ -14,8 +15,11 @@ async function readData() {
     }
 }
 
+
+
 chrome.runtime.onStartup.addListener(() => {
     console.log('Extension started GOD BLESSED');
+    
 });
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -26,7 +30,9 @@ chrome.runtime.onInstalled.addListener(() => {
 //     console.log('Tab updated GOD BLESSED');
 // });
 
-chrome.action.onClicked.addListener(async (tab) => {
+function do_stuff(){
+    
+    console.log('Do stuff triggered GOD BLESSED');
     const oneMonthAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
     chrome.history.search({ text: '', startTime: oneMonthAgo }, async (data) => {
         // SLEEP DEPRIVATION IS BAD FOR WRITING CODE NEED TO REFRACTOR if we got time lmao
@@ -61,17 +67,37 @@ chrome.action.onClicked.addListener(async (tab) => {
 
         const recent_news = [];
         for (const history of recent_history) {
-            for (const news of allside_data) {
+            for (let news of allside_data) {
+                news = news.publication; 
                 const historyHostname = new URL(history.url).hostname;
-                if (news.publication.source_url == "") {
+                if (news.source_url == "") {
                     continue;
                 }
-                const newsHostname = new URL(news.publication.source_url).hostname;
-
+                const newsHostname = new URL(news.source_url).hostname;
                 if (newsHostname == historyHostname) {
+                    
                     const aug_news = news;
-                    // REMINDER EVERYTHING SITS IN .publicatoin OTHER THAN visitCount
                     aug_news.visitCount = history.visitCount;
+                    aug_news.bias_numeric = 0;
+
+                    if (news.media_bias_rating == "Left") {
+                        aug_news.bias_numeric = -2;
+                    }else if (news.media_bias_rating == "Lean Left") {
+                        aug_news.bias_numeric = -1;
+                    }
+                    else if (news.media_bias_rating == "Center") {
+                        aug_news.bias_numeric = 0;
+                    }
+                    else if(news.media_bias_rating == "Mixed") {
+                        aug_news.bias_numeric = 0;
+                    }
+                    else if (news.media_bias_rating == "Lean Right") {
+                        aug_news.bias_numeric = 1;
+                    }
+                    else if(news.media_bias_rating == "Right") {
+                        aug_news.bias_numeric = 2;
+                    }
+
                     recent_news.push(aug_news);
                 }
             }
@@ -80,20 +106,38 @@ chrome.action.onClicked.addListener(async (tab) => {
 
         // This is the worst coding practice I have done omg its joever. I am so sorry for this
 
-        app.get('/', async (req, res) => {
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(recent_news));
-        });
 
-        chrome.action.setPopup({popup: 'hello.html'});
-        chrome.action.openPopup();
-     
+
+        const updateBackEnd = async (data) => {
+            try {
+                const response = await fetch(backendUrl + "update", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(recent_news)});
+                
+                if (!response.ok) {
+                    const responseText = await response.text();
+                    console.error(`Error updating data: ${response.status} ${response.statusText}`);
+                    console.error("Response text:", responseText);
+                    return;
+                }
+        
+                const result = await response.json();
+                console.log("Response from backend:", result);
+            } catch (error) {
+                console.error("Error updating data:", error);
+            }
+        }
+        updateBackEnd(recent_news);
+        
+        
 
     });
+}
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+ do_stuff();
 });
-
-// chrome.action.onClicked.addListener((tab) => {
-//     chrome.action.setPopup({popup: 'hello.html'});
-//     chrome.action.openPopup();
-
-// });
+chrome.tabs.onActivated.addListener((activeInfo) => {
+    do_stuff();
+});

@@ -6,7 +6,8 @@
     "action": {
       "default_icon": "icon.png",
       "default_title" : "CLICK ME",
-      "default_popup": "dashboard.html"
+      "default_popup": "dashboard.html",
+      "default_popup": "hello.html"
     },
     "background": {
     "service_worker": "background.js",
