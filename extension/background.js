@@ -1,6 +1,6 @@
-const backendUrl = 'https://echo-chamber-extension.onrender.com/';
+// const backendUrl = 'https://echo-chamber-extension.onrender.com/';
 
-// const backendUrl = 'http://localhost:3000/';
+const backendUrl = 'http://localhost:3000/';
 
 
 async function readData() {
@@ -13,6 +13,14 @@ async function readData() {
         console.error(err);
         return null;
     }
+}
+
+
+async function getCurrentTab() {
+    return (await chrome.tabs.query({
+        active: true,
+        currentWindow: true,
+    }))[0];
 }
 
 
@@ -113,7 +121,7 @@ function do_stuff(){
                 const response = await fetch(backendUrl + "update", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(recent_news)});
+                    body: JSON.stringify(data)});
                 
                 if (!response.ok) {
                     const responseText = await response.text();
@@ -131,8 +139,69 @@ function do_stuff(){
         updateBackEnd(recent_news);
         
         
+        const currentTab = await getCurrentTab();
+        const currentTabUrl = new URL(currentTab.url);
+        console.log(currentTabUrl);
+
+        let bestMatch = null;
+        let bestMatchScore = -1;
+        let bestMatchLength = Infinity;
+
+        for (const news of recent_news) {
+            const newsUrl = new URL(news.source_url);
+            if (currentTabUrl.hostname === newsUrl.hostname) {
+                const score = getMatchScore(currentTabUrl.pathname, newsUrl.pathname);
+                if (score > bestMatchScore || (score === bestMatchScore && newsUrl.pathname.length < bestMatchLength)) {
+                    bestMatch = news;
+                    bestMatchScore = score;
+                    bestMatchLength = newsUrl.pathname.length;
+                }
+            }
+        }
+
+        if (bestMatch) {
+            const updateCurrent = async (data) => {
+                try {
+                    const response = await fetch(backendUrl + "update_curr", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(data)});
+                        
+                        if (!response.ok) {
+                            const responseText = await response.text();
+                            console.error(`Error updating data: ${response.status} ${response.statusText}`);
+                            console.error("Response text:", responseText);
+                            return;
+                        }
+                
+                        const result = await response.json();
+                        console.log("Response from backend:", result);
+                    } catch (error) {
+                        console.error("Error updating data:", error);
+                    }
+                }
+                console.log("Updating current with best match:", bestMatch.source_url);
+                updateCurrent(bestMatch);
+            }
+        console.log("comparison done");
+        
 
     });
+}
+
+function getMatchScore(path1, path2) {
+    const segments1 = path1.split('/');
+    const segments2 = path2.split('/');
+    let score = 0;
+    for (let i = 0; i < Math.min(segments1.length, segments2.length); i++) {
+        if (segments1[i] === segments2[i]) {
+            score += 1;
+        } else {
+            break;
+        }
+    }
+    score = score - Math.abs(segments1.length - segments2.length);
+    return score;
 }
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
