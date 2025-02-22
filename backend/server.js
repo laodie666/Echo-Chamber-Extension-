@@ -27,7 +27,7 @@ app.get('/data', (req, res) => {
 });
 
 // req should be a json object matching the 4 constants above
-app.get('/update', (req, res) => {
+app.post('/update', (req, res) => {
   const {request} = req;
   if (request === undefined || request.bias_average === undefined || request.bias_variance === undefined || request.sites_visited === undefined || request.news_sites_visited === undefined) {
     res.status(400).send("Invalid request");
