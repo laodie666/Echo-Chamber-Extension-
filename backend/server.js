@@ -4,6 +4,10 @@ import { readFile } from './helper.js'; // Importing the readFile function from 
 
 const app = express(); // Creating an express app
 
+app.use(cors({
+  origin: "*"
+}));
+
 // Create a route that sends a response when visiting the homepage
 app.get('/', async (req, res) => {
   const data = await readFile();
