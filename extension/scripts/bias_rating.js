@@ -2,18 +2,17 @@ API_URL = chrome.runtime.getManifest().externally_connectable.matches[1];
 
 
 async function getUniqueId(){
-
-        return new Promise((resolve, reject) => {
-            chrome.storage.local.get("userId", (data) => {
-                if (chrome.runtime.lastError) {
-                    reject(chrome.runtime.lastError);
-                } else {
-                    console.log("User ID retrieved on startup:", data.userId);
-                    resolve(data.userId);
-                }
-            });
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.get("userId", (data) => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+            } else {
+                console.log("User ID retrieved on startup:", data.userId);
+                resolve(data.userId);
+            }
         });
-    
+    });
+
     
 }
 async function getCurrentSiteBias() {

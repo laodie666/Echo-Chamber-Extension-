@@ -16,15 +16,12 @@ async function readData() {
     }
 }
 
-
 async function getCurrentTab() {
     return (await chrome.tabs.query({
         active: true,
         currentWindow: true,
     }))[0];
 }
-
-
 
 chrome.runtime.onStartup.addListener(() => {
     console.log('Extension started GOD BLESSED');
@@ -57,10 +54,6 @@ chrome.runtime.onInstalled.addListener(() => {
         }
     });
 });
-
-// chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-//     console.log('Tab updated GOD BLESSED');
-// });
 
 function do_stuff(){
     
@@ -135,8 +128,6 @@ function do_stuff(){
             }
         }
         console.log(recent_news);
-
-        // This is the worst coding practice I have done omg its joever. I am so sorry for this
 
 
 
@@ -233,6 +224,22 @@ function getMatchScore(path1, path2) {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
  do_stuff();
 });
+
 chrome.tabs.onActivated.addListener((activeInfo) => {
     do_stuff();
+});
+
+chrome.tabs.onHighlighted.addListener((activeInfo) => {
+    do_stuff();
+});
+  
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    console.log("10");
+    if (message.action === "getCurrentUrl") {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const currentUrl = tabs[0].url;
+        sendResponse({ url: currentUrl });
+        });
+        return true;  // Keeps the message channel open for async response
+    }
 });

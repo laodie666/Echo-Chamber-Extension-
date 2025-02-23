@@ -1,10 +1,11 @@
-import express from 'express'; // Importing express
-import { readFile } from './helper.js'; // Importing the readFile function from helper.js
-import cors from 'cors'; // Importing cors
+import express from 'express'; 
+import { readFile } from './helper.js'; 
+import cors from 'cors'; 
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 let data = {};
 let current = new Map();
-
+const GEMINI_API_KEY = 'AIzaSyDfjYxBEGwweSNE5XpQsIOl229kxhe5QCI';
 
 const app = express(); // Creating an express app
 app.set('trust proxy', true)
@@ -68,6 +69,53 @@ app.get('/current/:id', (req, res) => {
 
 });
 
+
+// // Gemini integration w/ news search
+// const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+
+// // Your predefined list of reliable sources with their leanings
+// const NEWS_SOURCES = {
+//   "left": ["cnn.com", "theguardian.com", "bbc.com"],
+//   "right": ["foxnews.com", "nationalreview.com", "dailywire.com"],
+//   "center": ["apnews.com", "reuters.com", "pbs.org"]
+// };
+
+// Function to get alternative news articles
+// async function getAlternativeNews(articleUrl, targetBias) {
+//     const apiKey = 'YOUR_NEWSAPI_KEY'; 
+//     const sources = NEWS_SOURCES[targetBias].join(',');
+//     const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(articleUrl)}&sources=${sources}&apiKey=${apiKey}`;
+
+//     try {
+//         const response = await axios.get(url);
+//         const articles = response.data.articles.map(article => ({
+//             title: article.title,
+//             url: article.url
+//         }));
+//         return articles;
+//     } catch (error) {
+//         console.error('Error fetching news articles:', error);
+//         return [];
+//     }
+// }
+
+// API Endpoint ATM never called, also prob not using gemini
+// app.get('/search_gemini/:id', async (req, res) => {
+//   console.log("searching using gemini");
+//     const { url, targetBias } = req.query;
+//     console.log("url: " + url + " targetBias: " + targetBias);
+
+//     if (url === undefined|| targetBias === undefined) {
+//         return res.status(400).json({ error: "Missing parameters" });
+//     }
+
+//     try {
+//         const articles = await getAlternativeNews(url, targetBias);
+//         res.json({ articles });
+//     } catch (error) {
+//         res.status(500).json({ error: "Failed to fetch articles" });
+//     }
+// });
 
 // Set up the server to listen on port 3000
 const port = 3000;
