@@ -45,8 +45,8 @@ async function calculateStats() {
     const std_dev = ((variations / totalSites) ** 0.5).toFixed(2);
 
 
-    document.getElementById("mean").innerText = `Weighted Mean Bias Rating: ${weighted_mean_bias_rating}`;
-    document.getElementById("std dev").innerText = `Standard Deviation: ${std_dev}`;
+    document.getElementById("mean").innerText = weighted_mean_bias_rating;
+    document.getElementById("std dev").innerText = std_dev;
 
 }
 

@@ -23,9 +23,24 @@
         </a>
       </div>
     </header>
+
     
     
     <main class="flex-col p-6 overflow-y-scroll no-scrollbar">
+      <div class="px-4 mb-3">
+        <h1 class="text-xl text-gray-500 font-bold">
+          Main Alignment
+        </h1>
+        <h2 id="main alignment" class="text-[32px] -mt-1 font-bold">
+          loading...
+        </h2>
+        <p id="percent" class="text-[14px] leading-4">loading...</p>
+        <script src="libs/chart.umd.js"></script>
+        <script src="scripts/chart.js"></script>
+      </div>
+
+      <hr class="mt-4 mb-3 border-t-1 border-gray-300">
+      
       <div id="GRAPH SEC" class="">
         <h1 class="flex items-center justify-center mx-auto mb-3 text-xl text-black font-bold ">
           Bias Breakdown
@@ -36,19 +51,16 @@
       </div>
 
       <hr class="mt-4 border-t-1 border-gray-300">
-
-      <div class="px-4 py-3">
-        <h1 class="text-xl text-gray-500 font-bold">
-          Main Alignment
-        </h1>
-        <h2 id="main alignment" class="text-[32px] -mt-1 font-bold">
-          LEAN RIGHT
-        </h2>
-        <script src="libs/chart.umd.js"></script>
-        <script src="scripts/chart.js"></script>
-
-        <p id="mean">loading...</p>
-        <p id="std dev">loading...</p>
+      
+      <div class="px-4 mt-3">
+        <div class="text-[12px] flex flex-row">
+          <p><b>Weighted Mean Bias Rating:</b></p>
+          <p id="mean" class="ml-1">loading...</p>
+        </div>
+        <div class="text-[12px] flex flex-row">
+          <p><b>Standard Deviation:</b></p>
+          <p id="std dev" class="ml-1">loading...</p>
+        </div>
         <script src="scripts/user_stats.js"></script>
       </div>
       

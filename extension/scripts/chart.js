@@ -6,24 +6,20 @@ async function getUserChartData() {
         const response = await fetch(API_URL);
         const data = await response.json();
 
-        leaningData = [0,0,0,0,0,0];
-        // leaningData = {"LEFT": 0, "LEAN LEFT": 0, "CENTER":0, "MIXED":0, "LEAN RIGHT": 0, "RIGHT":0};
+        let leaningData = {
+            "Left": 0,
+            "Lean Left": 0,
+            "Center": 0,
+            "Mixed": 0,
+            "Lean Right": 0,
+            "Right": 0
+        };
         
         // loop through to count the number of news sites that belong to a specific leaning
         for (const site of data) {
-            if (site.media_bias_rating == "Left") {
-                leaningData[0] += 1;
-            } else if (site.media_bias_rating == "Lean Left") {
-                leaningData[1] += 1;
-            } else if (site.media_bias_rating == "Center") {
-                leaningData[2] += 1;
-            } else if (site.media_bias_rating == "Mixed") {
-                leaningData[3] += 1;
-            } else if (site.media_bias_rating == "Lean Right") {
-                leaningData[4] += 1;
-            } else {
-                // "Right"
-                leaningData[5] += 1;
+            if (leaningData.hasOwnProperty(site.media_bias_rating)) {
+                leaningData[site.media_bias_rating] += 1;
+                console.log(site.source_name);
             }
         }
 
@@ -43,10 +39,10 @@ async function createChart() {
     const myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['Left', 'Lean Left', 'Center', 'Mixed', 'Lean Right', 'Right'],
+            labels: Object.keys(leaningData),
             datasets: [{
                 label: 'Counts',
-                data: leaningData, 
+                data: Object.values(leaningData), 
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
@@ -73,6 +69,23 @@ async function createChart() {
             }
         }
     });
+
+    // display most frequent bias of sources viewed
+    let max = 0;
+    let maxKey = "";
+    let totalSites = 0;
+
+    for (const key of Object.keys(leaningData)) {
+        if (leaningData[key] > max) {
+            maxKey = key;
+            max = leaningData[key];
+            totalSites += leaningData[key];
+        }
+    }
+
+    document.getElementById("main alignment").innerText = maxKey.toUpperCase();
+    document.getElementById("percent").innerText = `${((max/totalSites) * 100).toFixed(0)}% of your sites come from ${maxKey.toLowerCase()} sources.`;
+    
 }
 
 document.addEventListener("DOMContentLoaded", createChart);
