@@ -11,10 +11,10 @@
 <html>
   <body class="flex flex-col w-[300px] h-[500px] max-h-[500px] bg-white overflow-y-hidden">
     <header class="flex justify-between items-center px-4 py-3 w-[100%] border-b border-gray-300">
-      <a href="./dashboard.html" class="text-2xl font-bold">
-        Echo
+      <a href="./dashboard.html" class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-fuchsia-500 -mt-1">
+        Reverb.
       </a>
-      <div class="flex gap-3 justify-between items-center px-2 text-sm">
+      <div class="flex gap-4 justify-between items-center px-2 text-sm">
         <a href="./bias.html" class="">
           Page Stats
         </a>
@@ -27,7 +27,7 @@
     
     
     <main class="flex-col p-6 overflow-y-scroll no-scrollbar">
-      <div class="px-4 mb-3">
+      <div class="px-4 -mt-1 mb-3">
         <h1 class="text-xl text-gray-500 font-bold">
           Main Alignment
         </h1>
@@ -39,7 +39,7 @@
         <script src="scripts/chart.js"></script>
       </div>
 
-      <hr class="mt-4 mb-3 border-t-1 border-gray-300">
+      <hr class="mt-5 mb-3 border-t-1 border-gray-300">
       
       <div id="GRAPH SEC" class="">
         <h1 class="flex items-center justify-center mx-auto mb-3 text-xl text-black font-bold ">
@@ -61,20 +61,24 @@
           <p><b>Standard Deviation:</b></p>
           <p id="std dev" class="ml-1">loading...</p>
         </div>
+        <p class="text-[9px] mt-2">Numeric ratings were asigned to each of the 6 bias ratings, from a scale of Left (-2) to Right (+2), with Center and Mixed denoting (0).</p>
         <script src="scripts/user_stats.js"></script>
       </div>
       
     </main>
 
-    <footer class="mt-auto px-4 py-3 w-[100%] h-[50px] bg-gray-100">
-      <!-- <div class="flex justify-center items-center gap-8">
-        <a href="./bias.html" class="">
-          Page Stats
-        </a>
-        <a href="./dashboard.html" class="">
-          Dashboard
-        </a>
-      </div> -->
+
+    
+    <footer class="mt-auto px-4 py-3 w-[100%] h-[50px] bg-gray-200 border-t border-gray-600">
+      <div class="flex items-center justify-center px-4">
+        <div class="text-[14px] text-gray-600 flex flex-row">
+          <p>metrics sourced from</p>
+          <a href="https://www.allsides.com/about" target="_blank" rel="noopener noreferrer" class="px-1 underline font-bold">
+            AllSides
+          </a>
+          <img src="./assets/AllSides-Icon.webp" alt="AllSides" class="scale-30 -m-8 -mt-9">
+        </div>
+      </div>
     </footer>
 
   </body>

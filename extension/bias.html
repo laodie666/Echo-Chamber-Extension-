@@ -8,35 +8,49 @@
 </head>
 
 <html>
-  <body class="flex flex-col w-[300px] h-[400px] bg-red-100">
-    <header class="flex justify-between items-center px-4 py-3 w-[100%] bg-white">
-      <a href="./dashboard.html" className="text-3xl font-bold text-red-300">
-        Echo
+  <body class="flex flex-col w-[300px] h-[500px] max-h-[500px] bg-white overflow-y-hidden">
+    <header class="flex justify-between items-center px-4 py-3 w-[100%] border-b border-gray-300">
+      <a href="./dashboard.html" class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-fuchsia-500 -mt-1">
+        Reverb.
       </a>
-      <div class="flex gap-3">
-        <a href="./bias.html" className="text-xl text-red-300">
+      <div class="flex gap-4 justify-between items-center px-2 text-sm">
+        <a href="./bias.html" class="">
           Page Stats
         </a>
-        Article Search
-        <a href="./dashboard.html" className="text-xl text-red-300">
+        <a href="./dashboard.html" class="">
           Dashboard
         </a>
       </div>
     </header>
 
-    <div id="site">Loading...</div>
-    
-    <script src="scripts/bias_rating.js"></script>
+    <main class="flex-col p-6 overflow-y-scroll no-scrollbar">
+      <div class="px-4 -mt-1 mb-3">
+        <h1 class="text-xl text-gray-500 font-bold">
+          Last outlet visited...
+        </h1>
+        <h2 id="site" class="text-[32px] leading-8 -mt-1 py-2 font-bold">
+          loading...
+        </h2>
+        <p id="bias" class="-mt-2 text-3xl font-bold">loading...</p>
+        <p id="freq" class="mt-2 text-[14px] leading-4">loading...</p>
+        <script src="scripts/bias_rating.js"></script>
+      </div>
 
-    <footer class="mt-auto px-4 py-3 w-[100%] bg-white">
-      <div class="flex justify-center items-center gap-8">
-        <a href="./bias.html" className="text-xl text-red-300">
-          Page Stats
-        </a>
-        Article Search
-        <a href="./dashboard.html" className="text-xl text-red-300">
-          Dashboard
-        </a>
+      <hr class="mt-5 mb-3 border-t-1 border-gray-300">
+      
+    </main>
+    
+    
+
+    <footer class="mt-auto px-4 py-3 w-[100%] h-[50px] bg-gray-200 border-t border-gray-600">
+      <div class="flex items-center justify-center px-4">
+        <div class="text-[14px] text-gray-600 flex flex-row">
+          <p>metrics sourced from</p>
+          <a href="https://www.allsides.com/about" target="_blank" rel="noopener noreferrer" class="px-1 underline font-bold">
+            AllSides
+          </a>
+          <img src="./assets/AllSides-Icon.webp" alt="AllSides" class="scale-30 -m-8 -mt-9">
+        </div>
       </div>
     </footer>
  

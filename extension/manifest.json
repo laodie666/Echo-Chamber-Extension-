@@ -22,6 +22,7 @@
     "matches": [
       "https://echo-chamber-extension.onrender.com/data", 
       "https://echo-chamber-extension.onrender.com/current"
-    ]
+    ],
+    "host_permissions": ["https://www.allsides.com/about"]
   }
 }

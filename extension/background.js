@@ -29,9 +29,15 @@ async function getCurrentTab() {
 chrome.runtime.onStartup.addListener(() => {
     console.log('Extension started GOD BLESSED');
     chrome.storage.local.get("userId", (data) => {
-        if (data.userId !== undefined) {
+
+        if (data.userId === undefined) {
+            const uniqueId = crypto.randomUUID(); // Generates a unique identifier
+            uniqueid = uniqueId;
+            chrome.storage.local.set({ userId: uniqueId });
+            console.log("Generated new user ID:", uniqueId);
+        } else {
             uniqueid = data.userId; // Ensure uniqueid is set correctly
-            console.log("User ID retrieved on startup:", data.userId);
+            console.log("User ID exists:", data.userId);
         }
     });
 });

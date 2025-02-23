@@ -34,22 +34,31 @@ async function createChart() {
     const ctx = document.getElementById('myChart').getContext('2d');
     const leaningData = await getUserChartData(); 
 
+    const leaningColour = {
+        "Left": 'rgba(255, 99, 132, 1)',
+        "Lean Left": 'rgba(255, 166, 185, 1)',
+        "Center": 'rgba(153, 102, 255, 1)',
+        "Mixed": 'rgba(255, 206, 86, 1)',
+        "Lean Right": 'rgba(142, 203, 245, 1)',
+        "Right": 'rgba(54, 162, 235, 1)'
+    };
+
     if (leaningData === undefined) return; 
 
     const myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: Object.keys(leaningData),
+            labels: ['Left', 'Lean Left', 'Center', 'Mixed', 'Lean Right', 'Right'],
             datasets: [{
                 label: 'Counts',
-                data: Object.values(leaningData), 
+                data: [leaningData["Left"], leaningData["Lean Left"], leaningData["Center"], leaningData["Mixed"], leaningData["Lean Right"], leaningData["Right"]], 
                 backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    leaningColour["Left"],
+                    leaningColour["Lean Left"],
+                    leaningColour["Center"],
+                    leaningColour["Mixed"],
+                    leaningColour["Lean Right"],
+                    leaningColour["Right"],
                 ],
                 borderWidth: 1
             }]
@@ -84,7 +93,8 @@ async function createChart() {
     }
 
     document.getElementById("main alignment").innerText = maxKey.toUpperCase();
-    document.getElementById("percent").innerText = `${((max/totalSites) * 100).toFixed(0)}% of your sites come from ${maxKey.toLowerCase()} sources.`;
+    document.getElementById("main alignment").style.color = leaningColour[maxKey];
+    document.getElementById("percent").innerText = `${((max/totalSites) * 100).toFixed(0)}% of your news sources class as ${maxKey.toLowerCase()}-biased.`;
     
 }
 
