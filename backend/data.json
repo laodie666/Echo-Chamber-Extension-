@@ -1361,15 +1361,6 @@
         },
         {
             "publication": {
-                "source_name": "Bing Search",
-                "source_type": "News Media",
-                "media_bias_rating": "Lean Left",
-                "source_url": "https:\/\/www.bing.com\/",
-                "allsides_url": "https:\/\/www.allsides.com\/news-source\/bing-search-media-bias"
-            }
-        },
-        {
-            "publication": {
                 "source_name": "Bipartisan Policy Center",
                 "source_type": "Think Tank \/ Policy Group",
                 "media_bias_rating": "Center",
@@ -4795,15 +4786,6 @@
                 "media_bias_rating": "Lean Left",
                 "source_url": "https:\/\/news.google.com\/",
                 "allsides_url": "https:\/\/www.allsides.com\/news-source\/google-news-media-bias"
-            }
-        },
-        {
-            "publication": {
-                "source_name": "Google Search",
-                "source_type": "News Media",
-                "media_bias_rating": "Lean Left",
-                "source_url": "https:\/\/www.google.com\/",
-                "allsides_url": "https:\/\/www.allsides.com\/news-source\/google-search-media-bias"
             }
         },
         {
