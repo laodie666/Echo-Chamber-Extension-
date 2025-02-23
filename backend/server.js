@@ -42,29 +42,29 @@ app.post('/update', (req, res) => {
 });
 
 // body of req should be a json object with only 1 element, which is the information of current tab returned from data.
-app.post('/update_curr', (req, res) => {
+app.post('/update_curr/:id', (req, res) => {
+  const id = req.params.id;
   console.log("update_curr");
   const request = req.body; // Correctly access the request body
-  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
   console.log("curr req body: " + request);
-  console.log("curr req ip: " + ip);
+  console.log("curr req id: " + id);
   if (request === undefined) {
     res.status(400).send("Invalid request");
     return;
   }
-  current.set(ip, request);
+  current.set(id, request);
+  console.log("current updated value at id: " + id);
+  console.log(current.get(id));
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(request));
 });
 
-app.get('/current', (req, res) => {
-  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-  console.log("curr req ip: " + ip);
-  console.log("printing current.");
+app.get('/current/:id', (req, res) => {
+  const id = req.params.id;
   console.log(current.keys());
-  console.log(current.get(ip));
+  console.log(current.get(id));
   res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify(current.get(ip)));
+  res.end(JSON.stringify(current.get(id)));
 
 });
 
