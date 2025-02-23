@@ -18,6 +18,9 @@
       "history"
     ],
     "externally_connectable": {
-    "matches": ["https://echo-chamber-extension.onrender.com/data"]
+    "matches": [
+      "https://echo-chamber-extension.onrender.com/data", 
+      "https://echo-chamber-extension.onrender.com/current"
+    ]
   }
 }

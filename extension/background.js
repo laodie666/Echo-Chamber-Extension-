@@ -112,6 +112,9 @@ function do_stuff(){
         }
         console.log(recent_news);
 
+        // This is the worst coding practice I have done omg its joever. I am so sorry for this
+
+
 
         const updateBackEnd = async (data) => {
             try {
