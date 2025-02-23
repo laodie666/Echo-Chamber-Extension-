@@ -7,6 +7,7 @@ let current = {};
 
 
 const app = express(); // Creating an express app
+app.set('trust proxy', true)
 
 app.use(cors({
   origin: "*" // Correct the origin value
@@ -43,20 +44,23 @@ app.post('/update', (req, res) => {
 // body of req should be a json object with only 1 element, which is the information of current tab returned from data.
 app.post('/update_curr', (req, res) => {
   const request = req.body; // Correctly access the request body
-  
+  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
   console.log("curr req body: " + request);
+  console.log("curr req ip: " + ip);
   if (request === undefined) {
     res.status(400).send("Invalid request");
     return;
   }
-  current = request;
+  current.ip = request;
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(data));
 });
 
 app.get('/current', (req, res) => {
+  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+  console.log("curr req ip: " + ip);
   res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify(current));
+  res.end(JSON.stringify(current.ip));
 });
 
 
