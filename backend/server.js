@@ -3,7 +3,7 @@ import { readFile } from './helper.js'; // Importing the readFile function from 
 import cors from 'cors'; // Importing cors
 
 let data = {};
-let current = {};
+let current = new Map();
 
 
 const app = express(); // Creating an express app
@@ -43,6 +43,7 @@ app.post('/update', (req, res) => {
 
 // body of req should be a json object with only 1 element, which is the information of current tab returned from data.
 app.post('/update_curr', (req, res) => {
+  console.log("update_curr");
   const request = req.body; // Correctly access the request body
   const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
   console.log("curr req body: " + request);
@@ -51,16 +52,20 @@ app.post('/update_curr', (req, res) => {
     res.status(400).send("Invalid request");
     return;
   }
-  current.ip = request;
+  current.set(ip, request);
   res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify(data));
+  res.end(JSON.stringify(request));
 });
 
 app.get('/current', (req, res) => {
   const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
   console.log("curr req ip: " + ip);
+  console.log("printing current.");
+  console.log(current.keys());
+  console.log(current.get(ip));
   res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify(current.ip));
+  res.end(JSON.stringify(current.get(ip)));
+
 });
 
 
