@@ -164,17 +164,21 @@ function do_stuff(){
 
         for (const news of recent_news) {
             const newsUrl = new URL(news.source_url);
-            if (currentTabUrl.hostname === newsUrl.hostname) {
-                const score = getMatchScore(currentTabUrl.pathname, newsUrl.pathname);
+            console.log("newsUrl:", newsUrl);
+            console.log("currentTabUrl:", currentTabUrl);
+            const score = getMatchScore(currentTabUrl.href, newsUrl.href);
+            console.log("Score:", score);
                 if (score > bestMatchScore || (score === bestMatchScore && newsUrl.pathname.length < bestMatchLength)) {
                     bestMatch = news;
                     bestMatchScore = score;
                     bestMatchLength = newsUrl.pathname.length;
                 }
-            }
+            
         }
-
+        console.log("Best score: ", bestMatchScore);
+        console.log("Is there best match?:", bestMatch);
         if (bestMatch) {
+            
             const updateCurrent = async (data) => {
                 try {
                     console.log("id being updated: " + uniqueid);
@@ -197,7 +201,7 @@ function do_stuff(){
                         console.error("Error updating data:", error);
                     }
                 }
-                console.log("Updating current with best match:", bestMatch.source_url);
+                console.log("Updating current with best match:", bestMatch);
                 updateCurrent(bestMatch);
             }
         console.log("comparison done");
@@ -207,17 +211,25 @@ function do_stuff(){
 }
 
 function getMatchScore(path1, path2) {
+    console.log("path1: " + path1 + " and path2: " + path2);
+
     const segments1 = path1.split('/');
     const segments2 = path2.split('/');
+    console.log("segments1: " + segments1 + " and segments2: " + segments2);
     let score = 0;
-    for (let i = 0; i < Math.min(segments1.length, segments2.length); i++) {
+    console.log("loop runs this many times", Math.max(segments1.length, segments2.length))
+    for (let i = 1; i < Math.max(segments1.length, segments2.length); i++) {
+        console.log("segment1[i]: " + segments1[i]);
+        console.log("segment2[i]: " + segments2[i]);
+        if (segments1[i] === '' || segments2[i] === '') {
+            continue;
+        }
         if (segments1[i] === segments2[i]) {
+            console.log("score increased");
             score += 1;
-        } else {
-            break;
         }
     }
-    score = score - Math.abs(segments1.length - segments2.length);
+
     return score;
 }
 
