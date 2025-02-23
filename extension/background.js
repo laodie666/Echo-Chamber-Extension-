@@ -1,6 +1,6 @@
-// const backendUrl = 'https://echo-chamber-extension.onrender.com/';
+const backendUrl = 'https://echo-chamber-extension.onrender.com/';
 
-const backendUrl = 'http://localhost:3000/';
+// const backendUrl = 'http://localhost:3000/';
 let uniqueid;
 
 
