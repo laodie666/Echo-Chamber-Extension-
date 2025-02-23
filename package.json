@@ -2,6 +2,7 @@
   "name": "echo-chamber",
   "version": "1.0.0",
   "description": "Whimsical and fun project for HackCanada2025",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,8 +18,11 @@
   },
   "homepage": "https://github.com/laodie666/Echo-Chamber-Extension-#readme",
   "dependencies": {
-  "express": "^4.18.2",
-  "cors": "^2.8.5"
-}
-
+    "@google/generative-ai": "^0.22.0",
+    "@tailwindcss/cli": "^4.0.8",
+    "chart.js": "^4.4.8",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "tailwindcss": "^4.0.8"
+  }
 }

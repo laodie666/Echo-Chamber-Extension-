@@ -4,9 +4,9 @@
     "version": "1.0",
     "manifest_version": 3,
     "action": {
-      "default_icon": "icon.png",
+      "default_icon": "icon.jpg",
       "default_title" : "CLICK ME",
-      "default_popup": "hello.html"
+      "default_popup": "dashboard.html"
     },
     "background": {
     "service_worker": "background.js",
@@ -17,5 +17,19 @@
       "activeTab",
       "history",
       "storage"
+    ],
+    "externally_connectable": {
+    "matches": [
+      "https://echo-chamber-extension.onrender.com/data", 
+      "https://echo-chamber-extension.onrender.com/current"
+      // "https://echo-chamber-extension.onrender.com/search_gemini"
+      // "http://localhost:3000/data",
+      // "http://localhost:3000/current",
+      // "http://localhost:3000/search_gemini"
+    ],
+    "host_permissions": [
+      "https://www.allsides.com/about",
+      "https://www.allsides.com/media-bias/media-bias-rating-methods"
     ]
+  }
 }
