@@ -1,2 +1,12 @@
 # Echo-Chamber-Extension-
-HackCanada2025 project. Google extension that checks your recent news website visits and see whether ur news intake is politically biased or not. 
+HackCanada2025 project. By Jordan Shao and Colleen Chang.
+
+This is a Chrome extension that will look at your Chrome history and your current tab and reflect on the political alignment of the news outlets you have seen over the past month. The data is sourced from [AllSides ](https://www.allsides.com/)
+
+Installation guide:
+
+Clone the repo then open the terminal to run
+
+npx @tailwindcss/cli -i ./extension/input.css -o ./extension/output.css --watch
+
+then go to Chrome, open manage extensions, open dev mode, load unpacked, and select the extension folder of the cloned repo.
