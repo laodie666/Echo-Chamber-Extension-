@@ -1,6 +1,7 @@
 const backendUrl = 'https://echo-chamber-extension.onrender.com/';
 
 // const backendUrl = 'http://localhost:3000/';
+let uniqueid;
 
 
 async function readData() {
@@ -27,11 +28,28 @@ async function getCurrentTab() {
 
 chrome.runtime.onStartup.addListener(() => {
     console.log('Extension started GOD BLESSED');
-    
+    chrome.storage.local.get("userId", (data) => {
+        if (data.userId !== undefined) {
+            uniqueid = data.userId; // Ensure uniqueid is set correctly
+            console.log("User ID retrieved on startup:", data.userId);
+        }
+    });
 });
 
 chrome.runtime.onInstalled.addListener(() => {
     console.log('Extension installed GOD BLESSED');
+    chrome.storage.local.get("userId", (data) => {
+
+        if (data.userId === undefined) {
+            const uniqueId = crypto.randomUUID(); // Generates a unique identifier
+            uniqueid = uniqueId;
+            chrome.storage.local.set({ userId: uniqueId });
+            console.log("Generated new user ID:", uniqueId);
+        } else {
+            uniqueid = data.userId; // Ensure uniqueid is set correctly
+            console.log("User ID exists:", data.userId);
+        }
+    });
 });
 
 // chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
@@ -162,7 +180,9 @@ function do_stuff(){
         if (bestMatch) {
             const updateCurrent = async (data) => {
                 try {
-                    const response = await fetch(backendUrl + "update_curr", {
+                    console.log("id being updated: " + uniqueid);
+                    console.log(backendUrl + "update_curr/" + uniqueid);
+                    const response = await fetch(backendUrl + "update_curr/" + uniqueid, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(data)});

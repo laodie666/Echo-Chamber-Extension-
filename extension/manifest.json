@@ -15,7 +15,8 @@
     "permissions": [
       "tabs",
       "activeTab",
-      "history"
+      "history",
+      "storage"
     ],
     "externally_connectable": {
     "matches": [
