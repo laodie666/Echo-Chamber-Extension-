@@ -8,3 +8,7 @@ Installation guide:
 Clone the repo.
 
 Then go to Chrome, open manage extensions, open dev mode, load unpacked, and select the extension folder of the cloned repo.
+
+![image](https://github.com/user-attachments/assets/1be19d8b-9ead-4b43-a1a9-3bc2e17d802e)
+
+![image](https://github.com/user-attachments/assets/f2a2d58d-1289-459a-acd2-b5e81bb0c4bd)
