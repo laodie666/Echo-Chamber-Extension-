@@ -5,8 +5,6 @@ This is a Chrome extension that will look at your Chrome history and your curren
 
 Installation guide:
 
-Clone the repo then open the terminal to run
+Clone the repo.
 
-npx @tailwindcss/cli -i ./extension/input.css -o ./extension/output.css --watch
-
-then go to Chrome, open manage extensions, open dev mode, load unpacked, and select the extension folder of the cloned repo.
+Then go to Chrome, open manage extensions, open dev mode, load unpacked, and select the extension folder of the cloned repo.
