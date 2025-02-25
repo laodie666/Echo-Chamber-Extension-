@@ -234,14 +234,50 @@ function getMatchScore(path1, path2) {
 }
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
- do_stuff();
+    chrome.storage.local.get("userId", (data) => {
+
+        if (data.userId === undefined) {
+            const uniqueId = crypto.randomUUID(); // Generates a unique identifier
+            uniqueid = uniqueId;
+            chrome.storage.local.set({ userId: uniqueId });
+            console.log("Generated new user ID:", uniqueId);
+        } else {
+            uniqueid = data.userId; // Ensure uniqueid is set correctly
+            console.log("User ID exists:", data.userId);
+        }
+    });
+    do_stuff();
 });
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
+    chrome.storage.local.get("userId", (data) => {
+
+        if (data.userId === undefined) {
+            const uniqueId = crypto.randomUUID(); // Generates a unique identifier
+            uniqueid = uniqueId;
+            chrome.storage.local.set({ userId: uniqueId });
+            console.log("Generated new user ID:", uniqueId);
+        } else {
+            uniqueid = data.userId; // Ensure uniqueid is set correctly
+            console.log("User ID exists:", data.userId);
+        }
+    });
     do_stuff();
 });
 
 chrome.tabs.onHighlighted.addListener((activeInfo) => {
+    chrome.storage.local.get("userId", (data) => {
+
+        if (data.userId === undefined) {
+            const uniqueId = crypto.randomUUID(); // Generates a unique identifier
+            uniqueid = uniqueId;
+            chrome.storage.local.set({ userId: uniqueId });
+            console.log("Generated new user ID:", uniqueId);
+        } else {
+            uniqueid = data.userId; // Ensure uniqueid is set correctly
+            console.log("User ID exists:", data.userId);
+        }
+    });
     do_stuff();
 });
   
